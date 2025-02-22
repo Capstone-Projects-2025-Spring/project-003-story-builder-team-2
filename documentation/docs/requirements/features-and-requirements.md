@@ -7,10 +7,12 @@ sidebar_position: 4
 
 ## Functional Requirements
 
-* Users can create accounts.  
+* When opening the application, the user will see a screen asking them to enter an email and a password. The email and password will be saved to a database. The user can login again later with their credentials. 
   ** Users must login in to use the service and to store their stories within their accounts.
-* Users can select AI agents that will be used to write the story.
-*	AI agents can be prompted with key details of a story.
+* After logging in, the user is directed to a new page where there are options to create a new story or read previous ones.
+* If the user selects create a new story, they will be directed to a new page where they can select AI agents that will be used to write a story. Each agent will have a brief description of their writing style.
+* After agents are selected, the user will be asked to prompt the agents with key details of the story in a text box. 
+*	The agents can write stories based on the prompt and in their own style. Only one chapter is written at a time. After a chapter is written, a voting process begins. 
 *	The agents vote on which agent’s chapter they like the most.
 *	The user can veto the chosen chapter and pick a different agent’s chapter.
 *	The user can review the chosen chapter and give critiques that will be considered by the agents.
