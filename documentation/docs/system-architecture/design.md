@@ -134,11 +134,28 @@ classDiagram
 
     - `setPersona()`
         Purpose: Set persona
-        Pre-conditions: The agent is created the stpry creation has not started 
+        Pre-conditions: The agent is created the story creation has not started 
         Parameters: String persona 
         Return value: Boolean 
+# VotePhase Class
+## Data Fields
+    - 'Array Agents' : Stores each of the agents that we will be utilizing to vote on the current version of the story and each new geenration
+    - 'Array Chapters' : Each of the stories chapters that will be generated will be kept here. ex. Chapter 1, 2....
+    - 'Array Votes' : Each of the agents votes will be stored to evaluate the total votes casted onto the story
 
-        
+## Methods
+
+    - `rest()`
+        Purpose: Stops the Agent generation of new material to allow for user reading/revision/etc
+        Pre-conditions: The agents have started generating material and are added to the story
+        Parameters: None
+        Return Value: String
+    - `countVotes()`
+        Purpose: Gathers the agent vote on what they believe to be the best generated material for the story
+        Pre-conditions: Material is present and generated for revision and agents are added onto the story
+        Parameters: Array - Agents
+        Return Value: Array
+    
 
 
 #### Database
