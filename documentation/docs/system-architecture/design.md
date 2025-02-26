@@ -165,7 +165,8 @@ Use Case 1 Description
 
 **Figure 1.2 (shown below)**
 
-![image](https://github.com/user-attachments/assets/c206541e-89a9-4677-9078-6e35f7ac2ccd)
+![image](https://github.com/user-attachments/assets/0e0ee22d-46d5-491b-b5a1-e07a3b2272dd)
+
 
 **Use Case 2:** User adds Agents
 <details>
@@ -180,7 +181,8 @@ Use Case 2 Description
 
 **Figure 1.3 (shown below)**
 
-![image](https://github.com/user-attachments/assets/80036676-7917-4de5-8cf7-cfc37068f1a0)
+![image](https://github.com/user-attachments/assets/a16c31e9-2d0a-4790-998a-cc49510e6043)
+
 
 **Use Case 3:** Initial Story Creation
 <details>
@@ -195,7 +197,8 @@ Use Case 3 Description
 
 **Figure 1.4 (shown below)**
 
-![image](https://github.com/user-attachments/assets/e838f7d0-f528-42fb-863c-e9cd9323bfd0)
+![image](https://github.com/user-attachments/assets/4e99b642-0872-4b18-9832-e544fedf287e)
+
 
 **Use Case 4:** Vote and Approve 
 <details>
@@ -211,7 +214,8 @@ Use Case 4 Description
 
 **Figure 1.5 (shown below)**
 
-![image](https://github.com/user-attachments/assets/798665fc-c9c6-42fb-96de-73869a193e46)
+![image](https://github.com/user-attachments/assets/c28a1128-d5b6-47fe-a7e6-7f538126c7bc)
+
 
 **Use Case 5:** Veto 
 <details>
@@ -227,7 +231,8 @@ Use Case 5 Description
 
 **Figure 1.6 (shown below)**
 
-![image](https://github.com/user-attachments/assets/4397b5bc-f3e2-44dc-82b2-9588ec83cae8)
+![image](https://github.com/user-attachments/assets/fc58ec06-0f19-4be2-acb9-2a616d788101)
+
 
 **Use Case 6:** Critiques
 <details>
