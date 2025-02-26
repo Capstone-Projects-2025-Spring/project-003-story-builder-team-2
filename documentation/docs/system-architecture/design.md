@@ -241,8 +241,11 @@ Use Case 6 Description
 </details>
 
 **Figure 1.7 (shown below)**
+![image](https://github.com/user-attachments/assets/73c409b9-3f4c-458e-bc4e-e78baef74557)
 
-![Use Case 6](https://github.com/user-attachments/assets/8836c91e-f13f-48cd-9071-78b5c9f90424)
+
+
+
 
 **Use Case 7:** Draft Revision
 <details>
@@ -259,7 +262,8 @@ Use Case 7 Description
 
 **Figure 1.8 (shown below)**
 
-![Use Case 7](https://github.com/user-attachments/assets/a1557169-1b04-43be-9736-1e510f3d0b1f)
+![image](https://github.com/user-attachments/assets/1eded874-472f-4661-90fb-a86da432b5d4)
+
 
 **Use Case 8:** Story Mode 
 <details>
@@ -274,7 +278,8 @@ Use Case 8 Description
 
 **Figure 1.9 (shown below)**
 
-![Use Case 8](https://github.com/user-attachments/assets/4c93d63c-2306-4a6d-b17a-7d8f9f0fea41)
+![image](https://github.com/user-attachments/assets/07e758cd-5c3c-454e-9ca4-91a10228a7b7)
+
 
 **Use Case 9:** Final Draft 
 <details>
@@ -289,7 +294,8 @@ Use Case 9 Description
 
 **Figure 1.10 (shown below)**
 
-![Use Case 9](https://github.com/user-attachments/assets/98c0b165-1bc6-4077-8571-1a0397d0bc0f)
+![image](https://github.com/user-attachments/assets/e03876e2-5d7f-4428-987c-09c62cea7cb6)
+
 
 **Use Case 10:** Account History 
 <details>
@@ -304,7 +310,8 @@ Use Case 10 Description
 
 **Figure 1.11 (shown below)**
 
-![Use Case 10](https://github.com/user-attachments/assets/a04da8bc-ca30-4113-b3a6-0dab8f1a94b8)
+![image](https://github.com/user-attachments/assets/c0099783-3e68-49fa-9e28-146e7c60a2fd)
+
 
 **Use Case 11:** Access Previous Drafts During Session 
 <details>
@@ -319,7 +326,8 @@ Use Case 11 Description
 
 **Figure 1.12 (shown below)**
 
-![Use Case 11](https://github.com/user-attachments/assets/9976e4cd-aeb7-4af7-94f7-15b6cc23b8b2)
+![image](https://github.com/user-attachments/assets/03b424ee-cc97-42c4-9407-bf8aff8143ea)
+
 
 ### State-Flow Diagram
 
