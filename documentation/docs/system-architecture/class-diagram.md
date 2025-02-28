@@ -182,7 +182,19 @@ classDiagram
     }
 ```
 
-**Figure 1.1** blah blah blah description
+**Figure 1.1** illustrates the Backend Class Diagram for StoryBuilder, consisting of six classes: User, Login, Session, Story, Agent, and VotePhase. For every user created, an instance of the User class is initialized, which utilizes the Login class to set up a username and password. Once registered, the user can create multiple sessions. Each session generates a Story with at least two Agents and one VotePhase. 
+
+*User* class manages the editing of chapters during each phase of the session, vetoing agent-submitted chapters, progression of the session’s next phase, and assigning guidelines for agents. 
+
+*Login* class handles the user authentication by verifying the username and password against stored credentials. 
+
+*Session* class is in charge of running the session. This includes the story creation, managing agents, session phase transitions, and setting guidelines for agents.  
+
+*Story* class takes care of the structure of the narrative, storing chapters, retrieving stories when prompted by user, and checking the story is completion status. 
+
+*Agent* class is the virtual writers that are created to contribute to the story. Each agent adopts a persona and drafts chapters based on the user’s prompt.  
+
+*VotePhase* class handles the voting system during each phase of the session, collecting votes from agents (and user) and determining the winning chapter. 
 
 # Story Class 
 ## Data Fields: 
