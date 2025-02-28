@@ -10,7 +10,7 @@ class Agent {
      * @param {string} prompt - The initial story prompt.
      * @param {string} context - Additional context for continuity.
      * @returns {Promise<string>} - The generated chapter.
-     */
+     */ 
     async generateChapter(prompt, context) {
         try {
             const response = await this.aiInstance.generateText({
