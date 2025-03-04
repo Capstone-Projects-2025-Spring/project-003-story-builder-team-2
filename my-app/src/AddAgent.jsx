@@ -56,7 +56,6 @@ const AddAgent = ({ children}) => {
                     </option>
                   ))}
                 </select>
-                {selectedOption && <p>You selected: {selectedOption}</p>}
               </div>
 
             </div>
