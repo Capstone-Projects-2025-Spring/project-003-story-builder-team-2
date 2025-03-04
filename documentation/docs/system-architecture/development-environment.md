@@ -1,6 +1,6 @@
 ---
 title: Development Environment
-sidebar_position: 3
+sidebar_position: 5
 ---
 
 # Development Environment

@@ -134,6 +134,11 @@ const config = {
             label: 'Docusaurus Tutorial',
             position: 'left',
             activeBaseRegex: `/tutorial/`,
+          },{
+            to: '/deployment-tutorial/intro',
+            label: 'Deployment Tutorial',
+            position: 'left',
+            activeBaseRegex: `/deployment-tutorial/`,
           },
           {
             href: 'https://github.com/'+process.env.ORG_NAME+'/'+process.env.PROJECT_NAME,
@@ -215,6 +220,15 @@ const config = {
         routeBasePath: 'tutorial',
         sidebarPath: require.resolve('./sidebars.js'),
         // ... other options
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'deployment-tutorial',
+        path: 'deployment-tutorial',
+        routeBasePath: 'deployment-tutorial',
+        sidebarPath: require.resolve('./sidebars.js'),
       },
     ],
     [
