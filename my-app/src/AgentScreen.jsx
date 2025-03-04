@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
+import AddAgent from './AddAgent.jsx'
 
 const AgentScreen = () => {
     const [deepSeekResponse, setDeepSeekResponse] = useState("");
     const [openAIResponse, setOpenAIResponse] = useState("");
     const [deepSeekLoading, setDeepSeekLoading] = useState(false); // loading state for DeepSeek
     const [openAILoading, setOpenAILoading] = useState(false); // loading state for OpenAI
+    const [isPopupOpen, setIsPopupOpen] = useState(false);  // State to control popup visibility
+
+    // Toggle the popup visibility
+    const togglePopup = () => {
+        setIsPopupOpen(!isPopupOpen);
+    };
 
     const fetchDeepSeekResponse = async () => {
         setDeepSeekLoading(true);
@@ -54,6 +61,12 @@ const AgentScreen = () => {
                 {openAILoading ? "Generating..." : "Generate Response"}
             </button>
             {openAIResponse && <p><strong>Response:</strong> {openAIResponse}</p>}
+
+            {/* The Popup component */}
+            <AddAgent isOpen={isPopupOpen} onClose={togglePopup}>
+                <h2>Add Agent</h2>
+            </AddAgent>
+            
         </div>
     );
 };
