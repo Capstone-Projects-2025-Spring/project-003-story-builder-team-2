@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.3.2">
 <title data-rh="true">Class Diagrams | Project 003 Story Builder Team 2</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://Capstone-Projects-2025-Spring.github.io/project-003-story-builder-team-2/docs/system-architecture/class-diagram"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Class Diagrams | Project 003 Story Builder Team 2"><meta data-rh="true" name="description" content="Components"><meta data-rh="true" property="og:description" content="Components"><link data-rh="true" rel="icon" href="/project-003-story-builder-team-2/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://Capstone-Projects-2025-Spring.github.io/project-003-story-builder-team-2/docs/system-architecture/class-diagram"><link data-rh="true" rel="alternate" href="https://Capstone-Projects-2025-Spring.github.io/project-003-story-builder-team-2/docs/system-architecture/class-diagram" hreflang="en"><link data-rh="true" rel="alternate" href="https://Capstone-Projects-2025-Spring.github.io/project-003-story-builder-team-2/docs/system-architecture/class-diagram" hreflang="x-default"><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><link rel="stylesheet" href="/project-003-story-builder-team-2/assets/css/styles.e4cc120d.css">
-<script src="/project-003-story-builder-team-2/assets/js/runtime~main.82f3e516.js" defer="defer"></script>
+<script src="/project-003-story-builder-team-2/assets/js/runtime~main.62caf5e7.js" defer="defer"></script>
 <script src="/project-003-story-builder-team-2/assets/js/main.908c26e3.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -17,15 +17,75 @@
 <p>The backend is built using JavaScript, with Node.js and Express. It handles data sent from the other components and processes it.</p>
 <!-- -->
 <p><strong>Figure 1.1</strong> blah blah blah description</p>
-<h1>Story Class</h1>
+<h1>Session Class</h1>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="data-fields">Data Fields:<a href="#data-fields" class="hash-link" aria-label="Direct link to Data Fields:" title="Direct link to Data Fields:">​</a></h2>
+<ul>
+<li>&#x27;Array Agents&#x27; : Stores each of the agents that we will be utilizing to vote on the current version of the story and each new generation.</li>
+<li>&#x27;User user&#x27; : Object representing a User.</li>
+<li>&#x27;Story story&#x27; : Object representing a Story.</li>
+<li>&#x27;Phase phase&#x27; : Object representing a Phase.</li>
+<li>&#x27;String guildlines&#x27; : Contains the outline for the entities within the system to follow the storybuilding process.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="methods">Methods:<a href="#methods" class="hash-link" aria-label="Direct link to Methods:" title="Direct link to Methods:">​</a></h2>
+<ul>
+<li>
+<p><code>createStory()</code>
+Purpose: To initialize a story for the session.
+Pre-conditions: The session has begun and active.
+Post-conditions: A story is added to the session.
+Parameters: Story, User
+Return value: Story</p>
+</li>
+<li>
+<p><code>addAgentToArray()</code>
+Purpose: Take an agent object and add it to the Agent array.
+Pre-conditions: The story must be initialized.
+Post-conditions: The story is unchanged, but an Agent is added to the session.
+Parameters: Agents
+Return value: Array</p>
+</li>
+<li>
+<p><code>removeAgentFromArray()</code>
+Purpose: Take an agent object and remove it from the Agent array.
+Pre-conditions: The story must be initialized.
+Post-conditions: The story is unchanged, but an Agent is removed from the session.
+Parameters: Agents
+Return value: Array</p>
+</li>
+<li>
+<p><code>moveToNextPhase()</code>
+Purpose: Initiate the next phase for the storybuilding process (generation of a specific content).
+Pre-conditions: The story must be initialized, with no current and incomplete generation process.
+Post-conditions: The next phase of the process is now begun.
+Parameters: Phase
+Return value: Phase</p>
+</li>
+<li>
+<p><code>reset()</code>
+Purpose: To reset the session and its story and parameters.
+Pre-conditions: The session has begun (User is logged in) and the story is initialized or in development.
+Post-conditions: The entire session is reset.
+Parameters: Story, User, Phase, Agents
+Return value: Story, String</p>
+</li>
+<li>
+<p><code>setGuidelines()</code>
+Purpose: To outline the User&#x27;s intended guidelines for their story.
+Pre-conditions: The story is initialized, but a chapter has not been generated yet.
+Post-conditions: A guideline for the story is completed.
+Parameters: guidelines
+Return value: String</p>
+</li>
+</ul>
+<h1>Story Class</h1>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="data-fields-1">Data Fields:<a href="#data-fields-1" class="hash-link" aria-label="Direct link to Data Fields:" title="Direct link to Data Fields:">​</a></h2>
 <ul>
 <li>&#x27;String guidelines&#x27; : Written guidelines for writing the story</li>
 <li>&#x27;Array chapters&#x27; : Stores each chapter of the story</li>
 <li>&#x27;Boolean isComplete&#x27; : Whether the story is complete or not</li>
 <li>&#x27;int length&#x27; : length of the story in chapters</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="methods">Methods:<a href="#methods" class="hash-link" aria-label="Direct link to Methods:" title="Direct link to Methods:">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="methods-1">Methods:<a href="#methods-1" class="hash-link" aria-label="Direct link to Methods:" title="Direct link to Methods:">​</a></h2>
 <ul>
 <li>
 <p><code>addChapter()</code>
@@ -53,13 +113,13 @@ Return value: Story</p>
 </li>
 </ul>
 <h1>Agent Class</h1>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="data-fields-1">Data Fields:<a href="#data-fields-1" class="hash-link" aria-label="Direct link to Data Fields:" title="Direct link to Data Fields:">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="data-fields-2">Data Fields:<a href="#data-fields-2" class="hash-link" aria-label="Direct link to Data Fields:" title="Direct link to Data Fields:">​</a></h2>
 <ul>
 <li>&#x27;String persona&#x27; : Stores speficifed infornation about the agents character like an author to imitate</li>
 <li>&#x27;String chapter&#x27; : Stores most recently generated chapter</li>
 <li>&#x27;String aiInstance&#x27; : Stores connection to AI</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="methods-1">Methods:<a href="#methods-1" class="hash-link" aria-label="Direct link to Methods:" title="Direct link to Methods:">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="methods-2">Methods:<a href="#methods-2" class="hash-link" aria-label="Direct link to Methods:" title="Direct link to Methods:">​</a></h2>
 <ul>
 <li>
 <p><code>generateChapter()</code>
@@ -94,7 +154,7 @@ Return value: Boolean</p>
 </li>
 </ul>
 <h1>VotePhase Class</h1>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="data-fields-2">Data Fields<a href="#data-fields-2" class="hash-link" aria-label="Direct link to Data Fields" title="Direct link to Data Fields">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="data-fields-3">Data Fields<a href="#data-fields-3" class="hash-link" aria-label="Direct link to Data Fields" title="Direct link to Data Fields">​</a></h2>
 <ul>
 <li>
 <p>&#x27;Array Agents&#x27; : Stores each of the agents that we will be utilizing to vote on the current version of the story and each new geenration</p>
@@ -106,7 +166,7 @@ Return value: Boolean</p>
 <p>&#x27;Array Votes&#x27; : Each of the agents votes will be stored to evaluate the total votes casted onto the story</p>
 </li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="methods-2">Methods<a href="#methods-2" class="hash-link" aria-label="Direct link to Methods" title="Direct link to Methods">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="methods-3">Methods<a href="#methods-3" class="hash-link" aria-label="Direct link to Methods" title="Direct link to Methods">​</a></h2>
 <ul>
 <li><code>rest()</code>
 Purpose: Stops the Agent generation of new material to allow for user reading/revision/etc
@@ -120,12 +180,12 @@ Parameters: Array - Agents
 Return Value: Array</li>
 </ul>
 <h1>Login Class</h1>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="data-fields-3">Data Fields<a href="#data-fields-3" class="hash-link" aria-label="Direct link to Data Fields" title="Direct link to Data Fields">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="data-fields-4">Data Fields<a href="#data-fields-4" class="hash-link" aria-label="Direct link to Data Fields" title="Direct link to Data Fields">​</a></h2>
 <ul>
 <li>&#x27;String username&#x27; : Personalized name created by the user</li>
 <li>&#x27;String password&#x27; : Each account has a password which secures the account and is used to login</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="methods-3">Methods<a href="#methods-3" class="hash-link" aria-label="Direct link to Methods" title="Direct link to Methods">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="methods-4">Methods<a href="#methods-4" class="hash-link" aria-label="Direct link to Methods" title="Direct link to Methods">​</a></h2>
 <ul>
 <li><code>validate()</code>
 Purpose: Validates user&#x27;s account and ensures that user can login into their personal account
@@ -136,6 +196,6 @@ Return Value: Boolean</li>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="database">Database<a href="#database" class="hash-link" aria-label="Direct link to Database" title="Direct link to Database">​</a></h4>
 <p>Firebase is used to store all of the necessary information generated and needed by the system to create the storyboard and drive user interaction. The database will contain information about chapters in the story, user data, and the generated critiques, goals, and votes.</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="llm">LLM<a href="#llm" class="hash-link" aria-label="Direct link to LLM" title="Direct link to LLM">​</a></h4>
-<p>The OpenAI API is used to generate content. It is connected to the Agents who request data for transmission and generation.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/Capstone-Projects-2025-Spring/project-003-story-builder-team-2/edit/main/documentation/docs/system-architecture/class-diagram.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"><details><summary>Revision History</summary><table><thead><tr><th scope="row">Author</th><th scope="row">Revision</th><th scope="row">Date</th></tr></thead><tbody>nothing</tbody></table></details><span class="theme-last-updated">Last updated<!-- --> by <b>chiku okechukwu</b></span></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/project-003-story-builder-team-2/docs/category/system-architecture"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">System Architecture</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/project-003-story-builder-team-2/docs/system-architecture/sequence-diagram"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Sequence Diagrams</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#components" class="table-of-contents__link toc-highlight">Components</a></li><li><a href="#data-fields" class="table-of-contents__link toc-highlight">Data Fields:</a></li><li><a href="#methods" class="table-of-contents__link toc-highlight">Methods:</a></li><li><a href="#data-fields-1" class="table-of-contents__link toc-highlight">Data Fields:</a></li><li><a href="#methods-1" class="table-of-contents__link toc-highlight">Methods:</a></li><li><a href="#data-fields-2" class="table-of-contents__link toc-highlight">Data Fields</a></li><li><a href="#methods-2" class="table-of-contents__link toc-highlight">Methods</a></li><li><a href="#data-fields-3" class="table-of-contents__link toc-highlight">Data Fields</a></li><li><a href="#methods-3" class="table-of-contents__link toc-highlight">Methods</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/project-003-story-builder-team-2/docs/intro">Documentation</a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/Capstone-Projects-2025-Spring/project-003-story-builder-team-2" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="margin-bottom--sm"><img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Temple_T_logo.svg" alt="My Site Logo" class="footer__logo themedComponent_mlkZ themedComponent--light_NVdE"><img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Temple_T_logo.svg" alt="My Site Logo" class="footer__logo themedComponent_mlkZ themedComponent--dark_xIcU"></div><div class="footer__copyright">Copyright © 2025 Project 003 Story Builder Team 2, Inc. Built with Docusaurus.</div></div></div></footer></div>
+<p>The OpenAI API is used to generate content. It is connected to the Agents who request data for transmission and generation.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/Capstone-Projects-2025-Spring/project-003-story-builder-team-2/edit/main/documentation/docs/system-architecture/class-diagram.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"><details><summary>Revision History</summary><table><thead><tr><th scope="row">Author</th><th scope="row">Revision</th><th scope="row">Date</th></tr></thead><tbody>nothing</tbody></table></details><span class="theme-last-updated">Last updated<!-- --> by <b>chiku okechukwu</b></span></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/project-003-story-builder-team-2/docs/category/system-architecture"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">System Architecture</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/project-003-story-builder-team-2/docs/system-architecture/sequence-diagram"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Sequence Diagrams</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#components" class="table-of-contents__link toc-highlight">Components</a></li><li><a href="#data-fields" class="table-of-contents__link toc-highlight">Data Fields:</a></li><li><a href="#methods" class="table-of-contents__link toc-highlight">Methods:</a></li><li><a href="#data-fields-1" class="table-of-contents__link toc-highlight">Data Fields:</a></li><li><a href="#methods-1" class="table-of-contents__link toc-highlight">Methods:</a></li><li><a href="#data-fields-2" class="table-of-contents__link toc-highlight">Data Fields:</a></li><li><a href="#methods-2" class="table-of-contents__link toc-highlight">Methods:</a></li><li><a href="#data-fields-3" class="table-of-contents__link toc-highlight">Data Fields</a></li><li><a href="#methods-3" class="table-of-contents__link toc-highlight">Methods</a></li><li><a href="#data-fields-4" class="table-of-contents__link toc-highlight">Data Fields</a></li><li><a href="#methods-4" class="table-of-contents__link toc-highlight">Methods</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/project-003-story-builder-team-2/docs/intro">Documentation</a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/Capstone-Projects-2025-Spring/project-003-story-builder-team-2" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="margin-bottom--sm"><img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Temple_T_logo.svg" alt="My Site Logo" class="footer__logo themedComponent_mlkZ themedComponent--light_NVdE"><img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Temple_T_logo.svg" alt="My Site Logo" class="footer__logo themedComponent_mlkZ themedComponent--dark_xIcU"></div><div class="footer__copyright">Copyright © 2025 Project 003 Story Builder Team 2, Inc. Built with Docusaurus.</div></div></div></footer></div>
 </body>
 </html>
