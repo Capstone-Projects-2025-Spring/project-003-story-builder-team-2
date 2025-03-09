@@ -3,4 +3,28 @@ sidebar_position: 3
 ---
 # Acceptance test
 
-Demonstration of all of the functional and non-functional requirements. This can be a combination of automated tests derived from the use-cases (user stories) and manual tests with recorded observation of the results.
+## Test Case
+```javascript
+test("fetches and displays response", async () => {
+    axios.post.mockResolvedValue({
+        data: { choices: [{ text: "This is a test response." }] },
+    });
+
+    render(<AgentScreen />);
+
+    const button = screen.getByText("Generate Response");
+    fireEvent.click(button);
+
+    // Check button text manually (Vitest does not support `toHaveTextContent` natively)
+    expect(button.textContent).toBe("Generating...");
+
+    await waitFor(() => {
+        // Instead of `toBeInTheDocument`, check if the element exists
+        expect(screen.getByText(/Response:/)).not.toBeNull();
+        expect(screen.getByText("This is a test response.")).not.toBeNull();
+    });
+
+    expect(button.textContent).toBe("Generate Response");
+});
+
+```
