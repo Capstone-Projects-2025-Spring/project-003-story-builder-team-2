@@ -14,7 +14,7 @@ const AgentScreen = () => {
                 prompt: "Write me a short poem, a few words",
             });
 
-            setDeepSeekResponse(res.data.choices[0].text);
+            setDeepSeekResponse(res.data.choices[0].message.content);
         } catch (error) {
             console.error("Error:", error.response?.data || error.message);
             setDeepSeekResponse("An error occurred while fetching the response.");

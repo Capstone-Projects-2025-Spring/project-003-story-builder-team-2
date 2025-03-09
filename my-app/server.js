@@ -46,7 +46,7 @@ app.post("/api/chat", async (req, res) => {
                 headers: {
                     "Content-Type": "application/json",
                     // greyed-out for now, until servers are back-up
-                    //"Authorization": `Bearer ${process.env.DEEPSEEK_API_KEY}`, 
+                    "Authorization": `Bearer ${process.env.DEEPSEEK_API_KEY}`, 
                 },
             }
         ); 
