@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+
+
 
 const AgentScreen = () => {
     const [deepSeekResponse, setDeepSeekResponse] = useState("");
     const [openAIResponse, setOpenAIResponse] = useState("");
     const [deepSeekLoading, setDeepSeekLoading] = useState(false); // loading state for DeepSeek
     const [openAILoading, setOpenAILoading] = useState(false); // loading state for OpenAI
+    
+    const navigate = useNavigate();
+
+const handleNavigation = (event) => {
+    const selectedValue = event.target.value;
+    if (selectedValue === "deepseek") {
+        navigate("/write"); 
+    } else if (selectedValue === "openai") {
+        navigate("/"); 
+    }
+};
 
     const fetchDeepSeekResponse = async () => {
         setDeepSeekLoading(true);
@@ -41,6 +55,13 @@ const AgentScreen = () => {
 
     return (
         <div>
+            <select onChange={handleNavigation}>
+                <option value=""> Select Agent</option>
+                <option value={"deepseek"}> DeepSeek</option>
+                <option>OpenAI</option>
+                
+
+            </select>
             <h2>DeepSeek AI Chat</h2>
             <button onClick={fetchDeepSeekResponse} disabled={deepSeekLoading}>
                 {deepSeekLoading ? "Generating..." : "Generate Response"}
