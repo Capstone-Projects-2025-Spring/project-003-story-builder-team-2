@@ -59,7 +59,7 @@ app.post("/api/chat", async (req, res) => {
         console.log("deepseek: ", response.data);
         console.log("deepseek: ", response.data.choices);
         
-        res.json({message: response.data.choices[0]?.message?.content});
+        res.json(response.data);
 
     } 
     //error catching to throw an error in the console incase there's an issue for further debugging.

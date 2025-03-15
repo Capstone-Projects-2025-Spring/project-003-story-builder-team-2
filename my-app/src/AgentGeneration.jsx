@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { db } from "../firebase.js"
 
 function AgentGeneration() {
     
@@ -29,6 +30,10 @@ function AgentGeneration() {
         } finally {
             setDeepSeekLoading(false);
         }
+    };
+
+    const fireAdd = async () => {
+
     };
 
     return (
