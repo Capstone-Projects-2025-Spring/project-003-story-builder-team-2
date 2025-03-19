@@ -4,15 +4,20 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite\" \"nodemon server.js\"",
+    "dev": "concurrently \"vite\" \"nodemon server.js\" \"firebase emulators:start\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node server.js",
-    "test": "jest"
+    "test": "jest",
+    "firebase:login": "firebase login",
+    "firebase:init": "firebase init",
+    "firebase:start": "firebase emulators:start",
+    "firebase:deploy": "firebase deploy"
   },
   "dependencies": {
     "@babel/preset-env": "^7.26.9",
+    "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "axios": "^1.8.1",
     "babel-jest": "^29.7.0",
     "concurrently": "^9.1.2",
