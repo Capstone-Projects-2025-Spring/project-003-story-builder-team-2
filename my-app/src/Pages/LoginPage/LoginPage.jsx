@@ -60,7 +60,7 @@ const LoginPage = () => {
            
         </p>
 
-        <form className="login-form">
+        <form className="login-form" onSubmit={(e) => e.preventDefault()}>
           <Email value={email} onChange={(e) => setEmail(e.target.value)}  />
           <Password value={password} onChange={(e) => setPassword(e.target.value)}/>
           <CreateAccountButton email={email} password={password} />
