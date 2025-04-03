@@ -3,8 +3,11 @@ import OpenAI from 'openai';
 
 class Agent {
     constructor(persona, aiInstance) {
-        this.persona = persona; 
+        this.persona = persona;
+        //chapter history is specific to this agent
         this.chapterHistory = [];
+        //voted chapters is the voted chapters for the story
+        this.votedChapters = [];
         this.chapter = "";
         this.aiInstance = aiInstance;
         this.outline = "";
@@ -56,6 +59,7 @@ class Agent {
                 });
                 this.chapter = res.data.choices[0].message.content;
                 this.chapterHistory.push(res.data.choices[0].message.content);
+                this.adaptToVotedChapter(this.chapter);
                 return this.chapter // Assuming the backend sends 'message' in the response
                 
                 
@@ -146,11 +150,20 @@ class Agent {
 
     /**
      * 
-     * @param {string} feedback 
+     * @param {string} adaptToVotedChapter
      */
-    adaptToNewChapter(feedback) {
-        console.log(`Agent (${this.persona}) adapting to feedback: ${feedback}`);
-        this.chapter += `\n[Agent adapts: ${feedback}]`;
+    adaptToVotedChapter(votedChapter) {
+        console.log(`Agent (${this.persona}) adapting to feedback: ${chapter}`);
+        
+    }
+
+    /**
+     * 
+     * @param {string} storeVotedChapter
+     */
+    storeVotedChapter(votedChapter) {
+        this.chapterHistory.push(votedChapter);
+        
     }
 
     /**
@@ -161,7 +174,7 @@ class Agent {
         try {
             // Create outline
             const response = await axios.post('http://localhost:5001/api/openai', {
-                userPrompt: "Create an outline, no loner than, 100 words, for a story about " + prompt + " The story will be 4 chapters in total and each chapter will be 50 words. Make sure to include what happens in each chapter and what characters appear.",
+                userPrompt: "Create an outline, no longer than, 100 words, for a story about " + prompt + " The story will be 4 chapters in total and each chapter will be 50 words. Make sure to include what happens in each chapter and what characters appear.",
             });
             this.outline = response.data.message;
             console.log(this.outline);
