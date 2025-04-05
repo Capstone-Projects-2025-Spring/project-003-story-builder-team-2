@@ -4,7 +4,7 @@ import axios from "axios";
 import Agent from "../../../Classes/Agent"
 import "./StoryCreationPage.css";
 import AddAgent from "../AgentPopup/AddAgent.jsx"
-
+import Evaluation from "../../Components/Evaluation/Evaluate.jsx"
 
 const StoryCreation = () => {
     const [userInput, setUserInput] = useState("");
@@ -21,6 +21,7 @@ const StoryCreation = () => {
 
     const [chapterCount, setChapterCount] = useState(0);  // Number input
     const [chapterButtons, setChapterButtons] = useState([]); // List of buttons
+    const [evaluation, setEvaluation] = useState("");
 
 
 
@@ -103,6 +104,9 @@ const StoryCreation = () => {
         console.log(`Clicked Chapter ${chapterIndex + 1}`);
         // Open modal with info on chapter
       };
+
+     
+
       
 
     return (
@@ -223,6 +227,14 @@ const StoryCreation = () => {
                         </button>
                     </div>
                 </div>
+                <div className="evaluation-box">
+                    {agents.length > 0 && (
+                    <Evaluation
+                            aiLoading={agents[0].chapterHistory[chapterIndex]} // or pass the selected agent
+                                 />
+                                        )}
+                </div>
+                
                 
             </div>
         
