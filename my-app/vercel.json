@@ -1,0 +1,11 @@
+
+
+
+{
+    "rewrites": [
+      { "source": "/login", "destination": "/" },
+      { "source": "/dashboard", "destination": "/" },
+      { "source": "/agent", "destination": "/" }
+    ]
+  }
+  
