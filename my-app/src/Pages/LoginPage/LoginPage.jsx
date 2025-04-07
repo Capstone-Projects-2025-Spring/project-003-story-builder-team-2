@@ -8,21 +8,7 @@ import CreateAccountButton from "../../Components/LoginComponents/CreateAccountB
 import { handleAuthentication } from "../../Components/LoginComponents/Authenication.jsx";
 import "./LoginPage.css";
 
-const fetchImages = async () => {
-  try {
-    const docRef = doc(db, "FrontendImages", "LoginScreenImage");
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      return docSnap.data().imageUrl;
-    } else {
-      console.error("No such document!");
-      return null;
-    }
-  } catch (error) {
-    console.error("Error fetching image:", error);
-    return null;
-  }
-};
+
 
 const LoginPage = () => {
   const [imageUrl, setImageUrl] = useState(null);
