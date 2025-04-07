@@ -181,6 +181,13 @@ const StoryCreation = () => {
 
   const handleChapterClick = () => {
     console.log(`Clicked Chapter ${chapterIndex + 1}`);
+
+  };
+
+  const handleViewDetails = () => {
+    // Open a modal or expand chapter info
+    console.log("View details for Chapter", chapterIndex + 1);
+    // e.g. setShowDetailsModal(true);
   };
 
   return (
@@ -257,9 +264,14 @@ const StoryCreation = () => {
           </div>
         )}
 
-        <button className="phase-box chapter-heading-button" onClick={handleChapterClick}>
-          Chapter {chapterIndex + 1}
-        </button>
+        <div className="chapter-header-row">
+            <button className="phase-box chapter-heading-button" onClick={handleChapterClick}>
+              Chapter {chapterIndex + 1}
+            </button>
+            <button className="view-details-button" onClick={handleViewDetails}>
+              View Story Details
+            </button>
+        </div>
 
                 <div className="arrows">
                             <button className="move-backward" onClick={() => goPreviousChapter()}>⬅</button>
