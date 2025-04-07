@@ -5,6 +5,7 @@ class Agent {
     constructor(persona, aiInstance) {
         this.persona = persona; 
         this.chapterHistory = [];
+        this.votedChapters = [];
         this.chapter = "";
         this.aiInstance = aiInstance;
         this.outline = "";
@@ -169,11 +170,10 @@ class Agent {
 
     /**
      * 
-     * @param {string} feedback 
+     * @param {string} votedChapter 
      */
-    adaptToNewChapter(feedback) {
-        console.log(`Agent (${this.persona}) adapting to feedback: ${feedback}`);
-        this.chapter += `\n[Agent adapts: ${feedback}]`;
+    getVotedChapter(votedChapter) {
+        this.votedChapters.put(votedChapter);
     }
 
     /**

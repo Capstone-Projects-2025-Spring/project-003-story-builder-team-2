@@ -46,6 +46,9 @@ class Voting {
         Votes: count,
       });
 
+      //for (const agent of this.agents) {
+      //  agent.getVotedChapter()
+      //}
       console.log(`✅ Updated chapter ${chapterId} with ${count} vote(s)`);
     }
 
