@@ -7,6 +7,7 @@ import "../AgentPopup/TestAgentPopup.css";
 import AddAgent from "../AgentPopup/AddAgent.jsx";
 import Evaluation from "../../Components/Evaluation/Evaluate.jsx";
 import ReactMarkdown from "react-markdown";
+import Voting from "../../Components/VotingInterface/VotingIf.jsx";
 //eval
 const StoryCreation = () => {
   const [userInput, setUserInput] = useState("");
@@ -321,6 +322,9 @@ const StoryCreation = () => {
           {agents.length > 0 && (
             <Evaluation aiLoading={agents[0].chapterHistory[chapterIndex]} />
           )}
+        </div>
+        <div classname="voting">
+          <Voting/>
         </div>
       </div>
     </div>
