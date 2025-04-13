@@ -12,28 +12,29 @@ class Agent {
         this.totalChapters = 0;
     }
 
+    async generateOutline(prompt){
+        await this.createOutline(prompt);
+        this.chapterCount++;
+        this.chapterHistory = [...this.chapterHistory, this.outline];
+        return this.outline;
+    }
+
     /**
      * Generates a story chapter based on the given prompt and context.
      * @param {string} prompt - The initial story prompt.
      * @param {string} context - Additional context for continuity.
      * @returns {Promise<string>} - The generated chapter.
      */
-    async generateChapter(prompt) {
+    async generateChapter(outline, chapter) {
         if(this.aiInstance == "openai"){
-            // Create outline if not already created
-            if (this.chapterCount == 0) {
-                await this.createOutline(prompt);
-            }
-            this.chapterCount++;
             try {
                 // Write a chapter using API
-                console.log("Write chapter number " + this.chapterCount + " ,no longer than 100 words, of a story based on the following story outline: " + JSON.stringify(this.outline));
                 const response = await axios.post('http://localhost:5001/api/openai', {
-                    userPrompt: "Write chapter number" + this.chapterCount + " ,no longer than 100 words, of a story based on the following story outline: " + this.outline,
+                    userPrompt: "Write chapter number " + this.chapterCount + " ,no longer than 100 words, of a story based on the following story outline: " + outline + ". With the context of this last chapter: " + chapter,
                     persona: this.persona, // Using the persona from the Agent instance
                 });
                 this.chapter = response.data.message;
-                this.chapterHistory.push(response.data.message);
+                this.chapterHistory = [...this.chapterHistory, this.chapter];
         
                 // Return the completion response from OpenAI
                 return this.chapter; // Assuming the backend sends 'message' in the response
@@ -43,20 +44,15 @@ class Agent {
                 throw new Error('Failed to generate completion');
             }
         }else{
-            // Create outline if not already created
-            if (this.chapterCount == 0) {
-                await this.createOutline(prompt);
-            }
-            this.chapterCount++;
             try {
                     // Write a chapter using API
-                console.log("Write chapter number " + this.chapterCount + " ,no longer than 100 words, of a story based on the following story outline: " + JSON.stringify(this.outline));
+                    
                 const res = await axios.post("http://localhost:5001/api/chat", {
                     prompt: "Write chapter number" + this.chapterCount + " ,no longer than 100 words, of a story based on the following story outline: " + this.outline,
                     persona: this.persona, // Using the persona from the Agent instance
                 });
                 this.chapter = res.data.choices[0].message.content;
-                this.chapterHistory.push(res.data.choices[0].message.content);
+                this.chapterHistory = [...this.chapterHistory, this.chapter];
                 return this.chapter // Assuming the backend sends 'message' in the response
                 
                 
@@ -189,7 +185,7 @@ class Agent {
      * 
      * @param {string} prompt 
      */
-    async createOutline(prompt) {
+    async createOutline(prompt, chapterNum) {
         try {
             // Create outline
             const response = await axios.post('http://localhost:5001/api/openai', {

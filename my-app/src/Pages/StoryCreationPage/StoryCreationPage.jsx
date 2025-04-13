@@ -2,12 +2,24 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Agent from "../../../Classes/Agent";
+import {
+  createNewSession,
+  loadSessionFromLocalStorage,
+  generateChaptersForAgentsInParallel,
+  callFakeVote,
+  setTotalChapters,
+} from "../../../Controllers/sessionController.js";
 import "./StoryCreationPage.css";
 import "../AgentPopup/TestAgentPopup.css";
 import AddAgent from "../AgentPopup/AddAgent.jsx";
 import Evaluation from "../../Components/Evaluation/Evaluate.jsx";
 import ReactMarkdown from "react-markdown";
+
 import Voting from "../../Components/VotingInterface/VotingIf.jsx";
+
+import ChapterInfoPopup from "../../Components/ChapterInfoPopup.jsx";
+
+
 //eval
 const StoryCreation = () => {
   const [userInput, setUserInput] = useState("");
@@ -24,53 +36,73 @@ const StoryCreation = () => {
   const [chapterButtons, setChapterButtons] = useState([]);
   const [storyIdea, setStoryIdea] = useState("");
   const [lastUsedPrompt, setLastUsedPrompt] = useState("");
+  const [phase, setPhase] = useState("generate");
 
+  const [isChpPopupOpen, setIsChpPopupOpen] = useState(false);
 
   const textSocketRef = useRef(null);
-  const promptToUse = storyIdea?.trim() || userInput || prompt;
 
   useEffect(() => {
     setShowModal(true);
   }, []);
 
-  const closeModal = () => {
+  const handleStartSession = () => {
+    const user = ""; // you can later grab this from login context
+    const prompt = userInput.trim() || "Write a story about a computer science student who learns they have superpowers.";
+  
+    createNewSession(user, prompt, agents, chapterCount);
+    for (const agent of agents) {
+      agent.setChapterCount(chapterCount);
+    }
+    
     setShowModal(false);
   };
 
-  useEffect(() => {
-    setPrompt(userInput.trim() ? userInput : "Write a story about a computer science student who learns they have superpowers.");
-  }, [userInput]);
-
-  const generateAIResponse = async () => {
-    setAILoading(true);
-    setAIResponse("");
-    setChapterIndex(agents[0]?.chapterCount || 0);
-
-    try {
-      for (const agent of agents) {
-        agent.setChapterCount(chapterCount);
-        await agent.generateChapter(prompt);
-        const newChapter = agent.chapterHistory[agent.chapterHistory.length - 1];
-        setAIResponse(newChapter);
-        setUserInput(newChapter);
-      }
-    } catch (error) {
-      console.error("Error:", error.response?.data || error.message);
-      setAIResponse("An error occurred while generating the story.");
-    } finally {
-      setAILoading(false);
-    }
+  const cloneAgent = (originalAgent) => {
+    const cloned = Object.create(Object.getPrototypeOf(originalAgent));
+    return Object.assign(cloned, originalAgent);
   };
+  
 
-  const sendWriterPrompt = (storyIdea) => {
+  const handleGenerateChapters = async () => {
+    setPhase("loading");
+  
+    await generateChaptersForAgentsInParallel((agent, chapter) => {
+      const updatedAgent = cloneAgent(agent);
+      setAgents((prevAgents) =>
+        prevAgents.map((a) =>
+          a.persona === updatedAgent.persona ? updatedAgent : a
+        )
+      );
+    });
+
+    setPhase("vote");
+  };
+  
+
+  const handleVoting = () => {
+    const winningChapter = callFakeVote();
+    if (winningChapter) {
+      console.log('Winning chapter added:', winningChapter);
+      // TODO: update UI state here if needed
+    } else {
+      console.log('No agents available to vote.');
+    }
+    setPhase("generate");
+    setChapterIndex(chapterIndex+1);
+
+  };
+  
+  
+
+ /* const sendWriterPrompt = (prompt) => {
     const previousChapter = agents[0]?.chapterHistory.slice(-1)[0] || "";
-    const basePrompt = storyIdea?.trim() || userInput || prompt;
   
     // For chapters after the first, use the last chapter as context
     const isContinuation = agents[0]?.chapterHistory.length > 0;
     const continuationPrompt = isContinuation
-      ? `${basePrompt}\n\nContinue the story based on the previous chapter:\n"${previousChapter}"\nMake sure the story continues naturally.`
-      : basePrompt;
+      ? `${prompt}\n\nContinue the story based on the previous chapter:\n"${previousChapter}"\nMake sure the story continues naturally.`
+      : prompt;
   
     if (!continuationPrompt || !agents.length) return;
   
@@ -124,17 +156,17 @@ const StoryCreation = () => {
         }
       };
     };
-  };
+  };*/
   
   
   
 
-  const handleSubmit = () => {
+  /*const handleSubmit = () => {
     if (storyIdea.trim()) {
       sendWriterPrompt(storyIdea);
       setStoryIdea("");
     }
-  };
+  };*/
 
   const goPreviousChapter = () => {
     if (chapterIndex > 0) {
@@ -152,9 +184,9 @@ const StoryCreation = () => {
       const goToChapter = (num) => {
         const maxIndex = agents[0]?.chapterHistory?.length;
 
-        if (num > 0 && num <= maxIndex) {
+        if (num >= 0 && num <= maxIndex) {
           console.log(`Switching to chapter ${num}`);
-          setChapterIndex(num-1);
+          setChapterIndex(num);
         } else {
           console.warn(`Chapter ${num} is out of bounds (max: ${num})`);
         }
@@ -181,9 +213,15 @@ const StoryCreation = () => {
     }
   };
 
-  const handleChapterClick = () => {
-    console.log(`Clicked Chapter ${chapterIndex + 1}`);
+  const openChpPopup = () => {
+    console.log("open phase info for: " + chapterIndex);
+    setIsChpPopupOpen(true);
   };
+
+  const closeChpPopup = () => {
+    setIsChpPopupOpen(false);
+  };
+
 
   return (
     <div className="story-create-page">
@@ -232,7 +270,7 @@ const StoryCreation = () => {
                 onChange={(e) => {
                   const value = parseInt(e.target.value) || 1;
                   setChapterCount(value);
-                  const buttons = Array.from({ length: value }, (_, i) => i + 1);
+                  const buttons = Array.from({ length: value+1 }, (_, i) => i );
                   setChapterButtons(buttons);
                 }}
               />
@@ -242,26 +280,25 @@ const StoryCreation = () => {
                 onChange={(e) => setUserInput(e.target.value)}
                 placeholder="Provide agents with key details required for the story. You can be as descriptive as you want"
               />
-
-              <div className="input-wrap">
-                <input
-                  className="input-box"
-                  type="text"
-                  placeholder="Enter story idea..."
-                  value={storyIdea}
-                  onChange={(e) => setStoryIdea(e.target.value)}
-                />
-              </div>
-
-              <button onClick={() => { closeModal(); generateAIResponse(); }}>Demo Story</button>
-              <button onClick={() => { closeModal(); handleSubmit(); }}>Write Chapter</button>
+              <button className="start-session-button" onClick={handleStartSession}>
+                Start Session
+              </button>
             </div>
           </div>
         )}
 
-        <button className="phase-box chapter-heading-button" onClick={handleChapterClick}>
-          Chapter {chapterIndex + 1}
+        <button className="phase-box chapter-heading-button" onClick={() => openChpPopup()}>
+          Chapter {chapterIndex}
         </button>
+
+        {isChpPopupOpen && (
+          <ChapterInfoPopup
+            isOpen={isChpPopupOpen}
+            onClose={closeChpPopup}
+            index={chapterIndex}
+          />
+        )}
+
 
                 <div className="arrows">
                             <button className="move-backward" onClick={() => goPreviousChapter()}>⬅</button>
@@ -311,11 +348,24 @@ const StoryCreation = () => {
         <div className="user-box">User Info</div>
 
         <div className="agent-text-container">
+
           <div className="controls">
-            <button onClick={() => sendWriterPrompt(storyIdea)} disabled={aiLoading}>
-              {aiLoading ? "Generating..." : "Generate Chapter"}
-            </button>
+
+          {phase === "generate" && (
+            <button onClick={handleGenerateChapters}>Generate Chapters</button>
+          )}
+
+          {phase === "vote" && (
+            <button onClick={handleVoting}>Vote</button>
+          )}
+
+           {phase === "loading" && (
+            <button>Loading...</button>
+          )}
+
+
           </div>
+
         </div>
 
         <div className="evaluation-box">
