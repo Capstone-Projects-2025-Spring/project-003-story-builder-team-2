@@ -117,7 +117,7 @@ const StoryCreation = () => {
     setLastUsedPrompt(continuationPrompt);
     setAILoading(true);
     setAIResponse("");
-  // anything that says localhost is breaking the project in deployment 
+  
     const textSocket = new WebSocket("ws://localhost:5001");
     textSocketRef.current = textSocket;
   

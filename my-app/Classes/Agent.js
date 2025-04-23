@@ -33,15 +33,13 @@ class Agent {
     async generateChapter(outline, chapter) {
         if(this.aiInstance == "openai"){
             try {
-                console.log("Write chapter number " + this.chapterCount + " ,no longer than 100 words, of a story based on the following story outline: " + JSON.stringify(this.outline) + ". With the context of this last chapter: " + JSON.stringify(this.chapter));
                 // Write a chapter using API
-                const response = await axios.post('/api/openai', {
-                    userPrompt: "Write chapter number " + this.chapterCount + " ,no longer than 100 words, of a story based on the following story outline: " + JSON.stringify(this.outline) + ". With the context of this last chapter: " + JSON.stringify(this.chapter),
+                const response = await axios.post('http://localhost:5001/api/openai', {
+                    userPrompt: "Write chapter number " + this.chapterCount + " ,no longer than 100 words, of a story based on the following story outline: " + outline + ". With the context of this last chapter: " + chapter,
                     persona: this.persona, // Using the persona from the Agent instance
                 });
                 this.chapter = response.data.message;
                 this.chapterHistory = [...this.chapterHistory, this.chapter];
-                this.chapterCount++;
         
                 // Return the completion response from OpenAI
                 return this.chapter; // Assuming the backend sends 'message' in the response
@@ -53,13 +51,12 @@ class Agent {
         }else{
             try {
                     // Write a chapter using API
-                const res = await axios.post('/api/chat', {
-                    prompt: "Write chapter number " + this.chapterCount + " ,no longer than 100 words, of a story based on the following story outline: " + JSON.stringify(this.outline) + ". With the context of this last chapter: " + JSON.stringify(this.chapter),
+                const res = await axios.post("http://localhost:5001/api/chat", {
+                    prompt: "Write chapter number" + this.chapterCount + " ,no longer than 100 words, of a story based on the following story outline: " + this.outline,
                     persona: this.persona, // Using the persona from the Agent instance
                 });
                 this.chapter = res.data.choices[0].message.content;
                 this.chapterHistory = [...this.chapterHistory, this.chapter];
-                this.chapterCount++;
                 return this.chapter // Assuming the backend sends 'message' in the response
                 
                 
@@ -86,7 +83,7 @@ class Agent {
         if(this.aiInstance == "openai"){
             try {
                 // Send a POST request to the backend API
-                const response = await axios.post('/api/openai', {
+                const response = await axios.post('http://localhost:5001/api/openai', {
                     userPrompt: `Analyze the following text and determine if the writing style is accurate to the selected persona:\n\n"${this.chapter}"\n\nProvide a percentage score and a brief explanation in uder 50 words.`
                 });
                 console.log("Accuracy Check Response: ", response.data.message);
@@ -98,7 +95,7 @@ class Agent {
             }
         }else{
             try {
-                    const res = await axios.post('/api/chat', {
+                    const res = await axios.post("http://localhost:5001/api/chat", {
                         prompt: `Analyze the following text and determine if the writing style is accurate to the selected persona:\n\n"${this.chapter}"\n\nProvide a percentage score and a brief explanation in under 50 words.`
             });
 
@@ -214,7 +211,7 @@ class Agent {
             chapterNumbers.set(i, key);
             i++;
         }
-        const response = await axios.post('/api/openai', {
+        const response = await axios.post('http://localhost:5001/api/openai', {
             userPrompt: "Pick your favorite writing sample from the following options. Your response should be a number following by an explanation of your thoughts on each of the options. For example, if you like option 1, your response should be 1 and then your reasoning. These are the options: \n" + chapters,
             persona: this.persona,
         });
@@ -235,7 +232,7 @@ class Agent {
     async createOutline(prompt, chapterNum) {
         try {
             // Create outline
-            const response = await axios.post('/api/openai', {
+            const response = await axios.post('http://localhost:5001/api/openai', {
                 userPrompt: "Create an outline, no longer than, 100 words, for a story about " + prompt + " The story will be " + this.totalChapters + " chapters in total and each chapter will be 50 words. Make sure to include what happens in each chapter and what characters appear.",
             });
             this.outline = response.data.message;
